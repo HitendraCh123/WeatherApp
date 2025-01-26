@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        .start {
+            background-color: #222;
+           max-width: 1230px; 
+           margin: 0px auto;
+            /* height: 570px; */
+            display: flex;
+        }
+        .main-body{
+            padding-bottom: 50px;
+        }
+
+        .content {
+            background: rgb(0, 31, 36);
+            background: linear-gradient(322deg, rgba(0, 31, 36, 0.7176995798319328) 0%, rgba(94, 226, 217, 1) 35%, rgba(0, 190, 255, 1) 100%);
+            border-radius: 20px;
+            height: 420px;
+            width: 43%;
+            margin-left: 370px;
+            margin-top: 20px;
+            padding: 40px;
+
+        }
+        .head {
+            display: flex;
+
+        }
+     
+        #input {
+            border: 2px solid;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            width: 260px;
+            height: 50px;
+            border-radius: 20px;
+        }
+
+        #input:placeholder-shown {
+            padding-left: 50px;
+            font-size: 25px;
+        }
+  
+
+        .icon {
+            margin-left: 20px;
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            align-content: center;
+            border-radius: 90px;
+            background-color: white;
+        }
+
+        .icon button {
+            border: none;
+            font-size: 20px;
+
+            background-color: white;
+
+        }
+
+        #image {
+            /* margin-top: 10px; */
+            margin-left: 60px;
+        }
+
+        .temp {
+            color: white;
+            margin-left: 105px;
+            /* font-size: 30px; */
+            /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ; */
+        }
+
+        .city {
+            color: white;
+            margin-left: 90px;
+            /* font-size: 30px; */
+            /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ; */
+        }
+
+        .buttom {
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+
+        .humidity {
+            font-size: 28px;
+        }
+        .speed{
+            font-size: 28px;
+        }
+
+        .wind {
+            font-size: 28px;
+        }
+
+        .hum {
+            font-size: 20px;
+            margin-left: 35px;
+        }
+    </style>
+
+    <div class="start">
+        <div class="main-body"> 
+        <div class="content">
+            <div class="head">
+                <div><input id="input" type="search" placeholder="Enter City" spellcheck="false"></div>
+
+                <div class="icon"><button id="button" ><i class="fa fa-search" aria-hidden="true"></i> </button>
+                </div>
+            </div>
+            <img id="image" src="mist.png" width="180px" alt="">
+
+            <h1 class="temp">23°C </h1>
+            <h1 class="city"> New York </h1>
+            <div class="buttom">
+                <div>
+                    <span class="image"> <img src="humidity.png" height="25px" alt=""></span>
+                    <span class="humidity">64</span>
+                     <br>
+                    <span class="hum">Humidity</span>
+                </div>
+                <div>
+                    <span class="wind"> <img src="wind.png" height="30px" alt=""></span> 
+                    <span class="speed"> 2.43</span>
+                    <br> <span class="hum">
+                        Wind</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+
+
+
+    <script>
+        const apikey = "2a0abf99bc36bc842702252b27c9692c";
+        const apiurl = "https://api.openweathermap.org/data/2.5/weather?=&units=metric&q=";
+
+        const searchbox=document.querySelector("#input");
+        const searchbutton=document.querySelector("#button")
+
+        async function checkweather(city) {
+            const response = await fetch( apiurl + city + `&appid=${apikey}`);
+            var data = await response.json();
+            console.log(data);
+
+
+            document.querySelector(".city").innerHTML=data.name;
+            document.querySelector(".temp").innerHTML=Math.round(data.main.temp) +"°C";
+            document.querySelector(".humidity").innerHTML=data.main.humidity +"%";
+            document.querySelector(".speed").innerHTML=data.wind.speed +"km/h";
+
+        }
+
+searchbutton.addEventListener("click", ()=>{
+
+    checkweather(searchbox.value);
+
+})
+
+
+    </script>
+</body>
+</html>
